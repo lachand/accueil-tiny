@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ptit Nid Sage - Guide de séjour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@400,0&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── Design tokens ───────────────────────────────────────────────────── */
+    :root {
+      --bg:              #fbfbe2;
+      --surface:         #f5f5dc;
+      --surface-md:      #efefd7;
+      --surface-high:    #e4e4cc;
+      --primary:         #0d631b;
+      --primary-mid:     #2e7d32;
+      --primary-pale:    rgba(13,99,27,.09);
+      --primary-pale2:   rgba(13,99,27,.15);
+      --secondary:       #77574d;
+      --secondary-pale:  #fed3c7;
+      --text:            #1b1d0e;
+      --text-muted:      #40493d;
+      --outline:         #707a6c;
+      --outline-faint:   rgba(112,122,108,.18);
+      --r-sm:  .25rem;
+      --r:     .5rem;
+      --r-md:  .75rem;
+      --r-lg:  1rem;
+      --r-xl:  1.5rem;
+    }
+
+    /* ─── Reset ──────────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* ─── Typography ─────────────────────────────────────────────────────── */
+    h1, h2, h3, h4 { font-family: 'Newsreader', Georgia, serif; }
+    h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 600; line-height: 1.15; letter-spacing: -.02em; }
+    h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; line-height: 1.3; }
+    h3 { font-size: 1.25rem; font-weight: 500; line-height: 1.4; }
+    h4 { font-size: 1.1rem; font-weight: 500; line-height: 1.4; }
+
+    .label-caps {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--outline);
+    }
+
+    /* ─── Icons ──────────────────────────────────────────────────────────── */
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;
+      vertical-align: middle;
+    }
+
+    /* ─── Header ─────────────────────────────────────────────────────────── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(251,251,226,.92);
+      border-bottom: 1px solid var(--outline-faint);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .header-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: .875rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .logo {
+      font-family: 'Newsreader', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--primary);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .logo-leaf { font-size: 1.1rem; margin-right: .15rem; }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: .125rem;
+      flex: 1;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    nav a {
+      font-family: 'Newsreader', serif;
+      font-size: .95rem;
+      color: var(--text-muted);
+      padding: .35rem .75rem;
+      border-radius: var(--r);
+      transition: background .15s, color .15s;
+    }
+    nav a:hover, nav a.active {
+      background: var(--primary-pale);
+      color: var(--primary);
+    }
+    .btn-pdf {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      background: var(--secondary);
+      color: #fff;
+      border: none;
+      padding: .5rem 1.1rem;
+      border-radius: 999px;
+      font-family: 'Inter', sans-serif;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+    }
+    .btn-pdf:hover  { background: #5d4037; transform: translateY(-1px); }
+    .btn-pdf:active { transform: translateY(0); }
+    .btn-pdf .material-symbols-outlined { font-size: 1rem; }
+
+    /* ─── Main ───────────────────────────────────────────────────────────── */
+    main {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 4rem;
+    }
+
+    /* ─── Hero ───────────────────────────────────────────────────────────── */
+    .hero {
+      border-radius: var(--r-xl);
+      padding: 5rem 3.5rem 4rem;
+      margin-bottom: 4rem;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      min-height: 440px;
+      display: flex;
+      align-items: flex-end;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 60%;
+    }
+    /* gradient overlay for text readability */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(10,40,10,.82) 0%,
+        rgba(10,40,10,.45) 55%,
+        rgba(10,40,10,.15) 100%
+      );
+      z-index: 1;
+    }
+    .hero::after { display: none; }
+    .hero-content { position: relative; z-index: 2; max-width: 580px; }
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.25);
+      color: rgba(255,255,255,.9);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: .35rem .85rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 { color: #fff; margin-bottom: 1rem; }
+    .hero p  { font-size: 1.1rem; opacity: .88; max-width: 460px; margin-bottom: 2rem; }
+    .hero-chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.2);
+      color: rgba(255,255,255,.92);
+      padding: .3rem .75rem;
+      border-radius: 999px;
+      font-size: .85rem;
+    }
+    .chip .material-symbols-outlined { font-size: .95rem; }
+
+    /* ─── Section layout ──────────────────────────────────────────────────── */
+    section { margin-bottom: 4.5rem; scroll-margin-top: 90px; }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      margin-bottom: 1.75rem;
+      color: var(--primary);
+    }
+    .section-header .material-symbols-outlined { font-size: 1.75rem; }
+    .section-header h2 { margin: 0; }
+
+    /* ─── Generic card ───────────────────────────────────────────────────── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--outline-faint);
+      border-radius: var(--r-lg);
+      padding: 1.5rem;
+    }
+    .card-icon {
+      width: 2.5rem; height: 2.5rem;
+      background: var(--primary-pale);
+      border-radius: var(--r);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    .card h3 { margin-bottom: .4rem; }
+    .card p  { color: var(--text-muted); font-size: .9rem; }
+
+    /* ─── Bienvenue ──────────────────────────────────────────────────────── */
+    .welcome-card {
+      background: var(--surface);
+      border: 1px solid var(--outline-faint);
+      border-radius: var(--r-xl);
+      padding: 2rem 2.5rem;
+      max-width: 800px;
+      border-left: 4px solid var(--primary);
+    }
+    .welcome-card p { color: var(--text-muted); }
+    .welcome-card .quote {
+      font-family: 'Newsreader', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      line-height: 1.7;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+
+    /* ─── Règles ─────────────────────────────────────────────────────────── */
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+    .rule-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--outline-faint);
+      border-radius: var(--r-lg);
+      padding: 1.1rem 1.25rem;
+      transition: border-color .2s;
+    }
+    .rule-item:hover { border-color: rgba(13,99,27,.3); }
+    .rule-num {
+      font-family: 'Newsreader', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1;
+      min-width: 1.75rem;
+      flex-shrink: 0;
+      margin-top: .15rem;
+    }
+    .rule-body strong { display: block; margin-bottom: .2rem; font-size: .95rem; }
+    .rule-body p { color: var(--text-muted); font-size: .88rem; }
+
+    /* ─── Équipements ────────────────────────────────────────────────────── */
+    .sub-label {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: var(--outline);
+      margin-bottom: 1rem;
+    }
+    .equip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: .875rem;
+      margin-bottom: 2rem;
+    }
+    .equip-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
+      background: var(--surface);
+      border: 1px solid var(--outline-faint);
+      border-radius: var(--r-lg);
+      padding: 1.1rem .75rem;
+      text-align: center;
+      transition: border-color .2s;
+    }
+    .equip-item:hover { border-color: rgba(13,99,27,.3); }
+    .equip-item .material-symbols-outlined { font-size: 1.75rem; color: var(--primary); }
+    .equip-item .label { font-size: .68rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--text-muted); }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ─── WiFi ───────────────────────────────────────────────────────────── */
+    .wifi-card {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      background: var(--surface);
+      border: 2px dashed var(--primary-mid);
+      border-radius: var(--r-xl);
+      padding: 2rem 2.5rem;
+      max-width: 520px;
+      margin-bottom: 1rem;
+    }
+    .wifi-icon { font-size: 3.5rem !important; color: var(--primary); flex-shrink: 0; }
+    .wifi-dl { display: flex; flex-direction: column; gap: 1rem; }
+    .wifi-field dt {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--outline);
+      margin-bottom: .15rem;
+    }
+    .wifi-field dd {
+      font-family: 'Newsreader', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* ─── Urgences ───────────────────────────────────────────────────────── */
+    .emergency-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    @media (max-width: 560px) {
+      .emergency-grid { grid-template-columns: 1fr; }
+      .emergency-grid .e-card { grid-column: span 1 !important; }
+    }
+    .e-card {
+      border-radius: var(--r-lg);
+      padding: 1.25rem 1rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .35rem;
+    }
+    .e-card.host {
+      background: var(--primary);
+      color: #fff;
+      grid-column: 1 / -1;
+      flex-direction: row;
+      text-align: left;
+      gap: 1.25rem;
+      padding: 1.5rem 1.75rem;
+    }
+    .e-card.host .e-icon { font-size: 2.5rem !important; opacity: .8; flex-shrink: 0; }
+    .e-card.standard { background: var(--surface); border: 1px solid var(--outline-faint); }
+    .e-num {
+      font-family: 'Newsreader', serif;
+      font-size: 2.25rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .e-card.host .e-num { font-size: 1.75rem; }
+    .e-lbl { font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; opacity: .75; }
+    .e-host-text { display: flex; flex-direction: column; gap: .25rem; }
+    .e-host-text p { font-size: .88rem; opacity: .85; }
+
+    /* ─── Activités ──────────────────────────────────────────────────────── */
+    .activities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.5rem;
+    }
+    .act-card {
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--outline-faint);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .act-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(0,0,0,.1); }
+    .act-img { height: 200px; overflow: hidden; }
+    .act-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .5s;
+    }
+    .act-card:hover .act-img img { transform: scale(1.07); }
+    .act-placeholder {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .act-placeholder .material-symbols-outlined { font-size: 4rem; }
+    .act-placeholder.green { background: var(--primary-pale2); color: var(--primary); }
+    .act-placeholder.brown { background: rgba(119,87,77,.12); color: var(--secondary); }
+    .act-body { padding: 1.25rem; }
+    .act-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: .25rem;
+      background: var(--primary-pale);
+      color: var(--primary);
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .2rem .65rem;
+      border-radius: 999px;
+      margin-bottom: .65rem;
+    }
+    .act-tag .material-symbols-outlined { font-size: .75rem; }
+    .act-body h4 { margin-bottom: .4rem; }
+    .act-body p  { color: var(--text-muted); font-size: .88rem; line-height: 1.55; }
+
+    /* ─── Info note ──────────────────────────────────────────────────────── */
+    .info-note {
+      display: flex;
+      align-items: flex-start;
+      gap: .75rem;
+      background: rgba(119,87,77,.07);
+      border-left: 4px solid var(--secondary);
+      border-radius: 0 var(--r) var(--r) 0;
+      padding: 1rem 1.25rem;
+      margin-top: 1.25rem;
+      font-size: .9rem;
+      font-style: italic;
+      color: var(--text-muted);
+    }
+    .info-note .material-symbols-outlined { color: var(--secondary); flex-shrink: 0; }
+    .info-note.danger {
+      background: rgba(186,26,26,.06);
+      border-left-color: #ba1a1a;
+    }
+    .info-note.danger .material-symbols-outlined { color: #ba1a1a; }
+
+    /* ─── Activity link ──────────────────────────────────────────────────── */
+    .act-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      margin-top: .75rem;
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--primary);
+      border: 1px solid var(--primary-pale2);
+      background: var(--primary-pale);
+      padding: .3rem .7rem;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: background .15s;
+    }
+    .act-link:hover { background: var(--primary-pale2); }
+    .act-link .material-symbols-outlined { font-size: .85rem; }
+
+    /* ─── Marchés ─────────────────────────────────────────────────────────── */
+    .marche-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: .875rem;
+    }
+    .marche-item {
+      display: flex;
+      align-items: center;
+      gap: .875rem;
+      background: var(--surface);
+      border: 1px solid var(--outline-faint);
+      border-radius: var(--r-lg);
+      padding: 1rem 1.1rem;
+    }
+    .marche-item .material-symbols-outlined { color: var(--primary); flex-shrink: 0; }
+    .marche-item div { display: flex; flex-direction: column; gap: .1rem; }
+    .marche-item strong { font-size: .95rem; }
+    .marche-item span { font-size: .82rem; color: var(--text-muted); }
+
+    /* Office de tourisme card */
+    .ot-card { display: block; text-decoration: none; color: inherit; }
+    .ot-card:hover { border-color: rgba(13,99,27,.3); }
+
+    /* ─── Commerces ──────────────────────────────────────────────────────── */
+    .commerce-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+    .commerce-card {
+      background: var(--surface);
+      border: 1px solid var(--outline-faint);
+      border-radius: var(--r-lg);
+      padding: 1.25rem;
+      transition: border-color .2s;
+    }
+    .commerce-card:hover { border-color: rgba(13,99,27,.3); }
+    .commerce-header {
+      display: flex;
+      align-items: flex-start;
+      gap: .875rem;
+      margin-bottom: .875rem;
+    }
+    .commerce-icon {
+      width: 2.25rem; height: 2.25rem;
+      background: var(--primary-pale);
+      border-radius: var(--r);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+    .commerce-header h4 { margin-bottom: .25rem; font-size: 1rem; }
+    .horaires { display: flex; flex-direction: column; gap: .3rem; }
+    .horaires > div { display: flex; gap: .5rem; align-items: baseline; }
+    .horaires dt {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: var(--outline);
+      min-width: 6rem;
+      flex-shrink: 0;
+    }
+    .horaires dd { font-size: .88rem; color: var(--text); }
+
+    /* ─── Footer ─────────────────────────────────────────────────────────── */
+    footer {
+      background: var(--surface-high);
+      border-top: 1px solid var(--outline-faint);
+      text-align: center;
+      padding: 2.5rem 2rem;
+      color: var(--text-muted);
+      font-size: .875rem;
+    }
+    .footer-logo {
+      font-family: 'Newsreader', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: block;
+      margin-bottom: .5rem;
+    }
+
+    /* ─── Mobile ─────────────────────────────────────────────────────────── */
+    @media (max-width: 720px) {
+      .header-inner { padding: .75rem 1rem; }
+      nav { display: none; }
+      main { padding: 1.5rem 1rem 3rem; }
+      .hero { padding: 2.5rem 1.5rem 2.5rem; border-radius: var(--r-lg); margin-bottom: 2.5rem; }
+      .wifi-card { flex-direction: column; text-align: center; padding: 1.5rem; gap: 1rem; }
+      .e-card.host { flex-direction: column; text-align: center; }
+    }
+
+    /* ─── Print / PDF ─────────────────────────────────────────────────────── */
+    @media print {
+      @page { margin: 18mm 14mm; size: A4; }
+
+      header, .no-print { display: none !important; }
+
+      body { background: #fff; color: #111; font-size: 10.5pt; }
+
+      main { padding: 0; max-width: 100%; }
+
+      .hero {
+        min-height: 180px;
+        padding: 1.75rem 2rem;
+        margin-bottom: 1.75rem;
+        border-radius: .5rem;
+        page-break-inside: avoid;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .hero::before {
+        background: linear-gradient(to top, rgba(10,40,10,.75) 0%, rgba(10,40,10,.55) 100%);
+      }
+
+      section {
+        page-break-inside: avoid;
+        margin-bottom: 1.75rem;
+        scroll-margin-top: 0;
+      }
+
+      #activites { page-break-inside: auto; }
+      .act-card { page-break-inside: avoid; }
+
+      .card, .rule-item, .equip-item, .e-card.standard,
+      .act-card, .welcome-card, .wifi-card {
+        border: 1px solid #ccc !important;
+        background: #fff !important;
+        box-shadow: none !important;
+      }
+
+      .e-card.host {
+        background: var(--primary-mid) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        color: #fff !important;
+      }
+
+      .act-img { height: 130px; }
+      .act-placeholder { height: 80px; }
+      .act-card:hover { transform: none; }
+      .hero::before { display: none; }
+
+      /* Affiche l'URL réelle au lieu du libellé "Site officiel" */
+      .act-link {
+        font-size: 0 !important;
+        background: none !important;
+        border: none !important;
+        padding: 0 !important;
+        display: block;
+        margin-top: .3rem;
+      }
+      .act-link::after {
+        content: "↗ " attr(href);
+        font-size: 7.5pt;
+        font-style: italic;
+        color: #444;
+        font-weight: normal;
+        letter-spacing: 0;
+        text-transform: none;
+      }
+      .act-link .material-symbols-outlined { display: none; }
+
+      /* URLs sur les cartes office de tourisme */
+      .ot-card .act-link {
+        font-size: 0 !important;
+      }
+      .ot-card .act-link::after {
+        content: "↗ " attr(href);
+        font-size: 7.5pt;
+        font-style: italic;
+        color: #444;
+      }
+
+      footer { display: block !important; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ═══════════════════════════════════════════════════════ HEADER -->
+<header>
+  <div class="header-inner">
+    <a class="logo" href="#"><span class="logo-leaf"></span> Ptit Nid Sage</a>
+    <nav id="main-nav">
+      <a href="#bienvenue">Bienvenue</a>
+      <a href="#regles">Règles</a>
+      <a href="#equipements">Équipements</a>
+      <a href="#vie-en-tiny">Vie en tiny</a>
+      <a href="#wifi">WiFi</a>
+      <a href="#activites">Activités</a>
+      <a href="#commerces">Commerces</a>
+      <a href="#urgences">Urgences</a>
+    </nav>
+    <button class="btn-pdf no-print" id="btn-pdf" onclick="exportPDF()">
+      <span class="material-symbols-outlined">picture_as_pdf</span>
+      Télécharger PDF
+    </button>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════ MAIN -->
+<main>
+
+  <!-- HERO -->
+  <div class="hero">
+    <img class="hero-bg" src="images/tiny.jpeg" alt="Le Ptit Nid Sage niché dans la verdure">
+    <div class="hero-content">
+      <span class="hero-pill">
+        <span class="material-symbols-outlined" style="font-size:.9rem">menu_book</span>
+        Guide de séjour
+      </span>
+      <h1>Bienvenue au<br>Ptit Nid Sage</h1>
+      <div class="hero-chips">
+        <span class="chip"><span class="material-symbols-outlined">login</span> Arrivée dès 16h</span>
+        <span class="chip"><span class="material-symbols-outlined">logout</span> Départ avant 10h</span>
+        <span class="chip"><span class="material-symbols-outlined">wifi</span> WiFi gratuit</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── BIENVENUE ─────────────────────────────────────────────────────── -->
+  <section id="bienvenue">
+    <div class="section-header">
+      <span class="material-symbols-outlined">favorite</span>
+      <h2>Bienvenue</h2>
+    </div>
+    <div class="welcome-card">
+      <p class="quote">
+        Nous sommes ravis de vous accueillir dans notre tiny house. Ce petit nid a été pensé avec soin pour vous offrir une parenthèse de calme, de chaleur et de sérénité.
+      </p>
+      <p>
+        Dans ce guide, vous trouverez tout ce dont vous avez besoin pour profiter pleinement de votre séjour : équipements, règles de la maison, informations pratiques et idées de sorties dans les environs. N'hésitez pas à nous contacter si vous avez la moindre question - nous sommes là pour que votre séjour soit inoubliable.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─── RÈGLES ─────────────────────────────────────────────────────────── -->
+  <section id="regles">
+    <div class="section-header">
+      <span class="material-symbols-outlined">gavel</span>
+      <h2>Règles de la maison</h2>
+    </div>
+    <ul class="rules-grid">
+      <li class="rule-item">
+        <span class="rule-num">1</span>
+        <div class="rule-body">
+          <strong>Horaires d'arrivée et départ</strong>
+          <p>Arrivée à partir de 16h, départ avant 10h. En dehors de ces créneaux, merci de nous contacter à l'avance.</p>
+        </div>
+      </li>
+      <li class="rule-item">
+        <span class="rule-num">2</span>
+        <div class="rule-body">
+          <strong>Non-fumeur</strong>
+          <p>Il est interdit de fumer à l'intérieur. La cigarette est tolérée uniquement en extérieur, loin de la structure.</p>
+        </div>
+      </li>
+      <li class="rule-item">
+        <span class="rule-num">3</span>
+        <div class="rule-body">
+          <strong>Animaux interdits</strong>
+          <p>Les animaux de compagnie ne sont pas acceptés dans la tiny house.</p>
+        </div>
+      </li>
+      <li class="rule-item">
+        <span class="rule-num">4</span>
+        <div class="rule-body">
+          <strong>Poubelles et tri des déchets</strong>
+          <p>Les bacs de tri sélectif se trouvent vers la boîte aux lettres. Merci de respecter les consignes de tri.</p>
+        </div>
+      </li>
+      <li class="rule-item">
+        <span class="rule-num">5</span>
+        <div class="rule-body">
+          <strong>Respect des lieux</strong>
+          <p>Merci de laisser la tiny house dans l'état dans lequel vous souaitez la trouver</p>
+        </div>
+      </li>
+      <li class="rule-item">
+        <span class="rule-num">6</span>
+        <div class="rule-body">
+          <strong>Signaler les incidents</strong>
+          <p>En cas de problème ou de casse accidentelle, prévenez-nous. Nous ferons au mieux pour y remédier.</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ─── ÉQUIPEMENTS ───────────────────────────────────────────────────── -->
+  <section id="equipements">
+    <div class="section-header">
+      <span class="material-symbols-outlined">home</span>
+      <h2>Équipements</h2>
+    </div>
+
+    <p class="sub-label">Cuisine</p>
+    <div class="equip-grid">
+      <div class="equip-item">
+        <span class="material-symbols-outlined">kitchen</span>
+        <span class="label">Réfrigérateur</span>
+      </div>
+      <div class="equip-item">
+        <span class="material-symbols-outlined">oven_gen</span>
+        <span class="label">Four électrique</span>
+      </div>
+      <div class="equip-item">
+        <span class="material-symbols-outlined">gas_meter</span>
+        <span class="label">Plaque gaz</span>
+      </div>
+      <div class="equip-item">
+        <span class="material-symbols-outlined">coffee_maker</span>
+        <span class="label">Cafetière piston</span>
+      </div>
+      <div class="equip-item">
+        <span class="material-symbols-outlined">kettle</span>
+        <span class="label">Bouilloire</span>
+      </div>
+    </div>
+
+    <p class="sub-label">Couchage et espaces de vie</p>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon"><span class="material-symbols-outlined">bed</span></div>
+        <h3>2 Mezzanines</h3>
+        <p>Deux espaces de couchage en hauteur, cosy.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon"><span class="material-symbols-outlined">sports_gymnastics</span></div>
+        <h3>Filet de détente</h3>
+        <p>Un filet suspendu idéal pour se prélasser ou lire.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon"><span class="material-symbols-outlined">deck</span></div>
+        <h3>Terrasse et toboggan</h3>
+        <p>Terrasse extérieure parfaite pour les repas en plein air. Le toboggan ravira les plus jeunes.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon"><span class="material-symbols-outlined">casino</span></div>
+        <h3>Jeux de société et jouets</h3>
+        <p>Une sélection de jeux pour adultes et pour enfants, parfaits pour les soirées en famille.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon"><span class="material-symbols-outlined">ev_station</span></div>
+        <h3>Recharge véhicule électrique</h3>
+        <p>Une prise de recharge pour voiture électrique est disponible sur demande. Contactez-nous avant votre arrivée.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ─── VIE EN TINY ──────────────────────────────────────────────────── -->
+  <section id="vie-en-tiny">
+    <div class="section-header">
+      <span class="material-symbols-outlined">tips_and_updates</span>
+      <h2>Vie en tiny house</h2>
+    </div>
+    <div class="cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
+
+      <div class="card">
+        <div class="card-icon"><span class="material-symbols-outlined">compost</span></div>
+        <h3>Toilettes sèches</h3>
+        <p>Après chaque utilisation, ajoutez une petite poignée de sciure à l'aide du gobelet prévu à cet effet. Le bac de sciure se trouve juste à côté des toilettes.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon"><span class="material-symbols-outlined">window</span></div>
+        <h3>Volets et chaleur</h3>
+        <p>En cas d'ensoleillement direct, fermez les volets pour garder la tiny house fraîche. Les petits espaces chauffent vite - c'est le geste le plus efficace.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon"><span class="material-symbols-outlined">air</span></div>
+        <h3>Aération et moustiquaires</h3>
+        <p>La tiny s'aère très facilement. Pensez toujours à mettre les moustiquaires en place avant d'ouvrir les fenêtres pour éviter les moustiques, guêpes et punaises.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon"><span class="material-symbols-outlined">device_thermostat</span></div>
+        <h3>Déshumidificateur</h3>
+        <p>Deux modes disponibles :</p>
+        <ul style="margin-top:.5rem; padding-left:0; list-style:none; font-size:.88rem; color:var(--text-muted); display:flex; flex-direction:column; gap:.4rem;">
+          <li style="display:flex;align-items:flex-start;gap:.5rem;">
+            <span style="font-size:1.1rem;flex-shrink:0">〰</span>
+            <span><strong>Ventilateur vertical (3 vagues)</strong> - idéal pour avoir du vent sur le filet de détente et profiter d'une brise fraîche.</span>
+          </li>
+          <li style="display:flex;align-items:flex-start;gap:.5rem;">
+            <span style="font-size:1.1rem;flex-shrink:0">💧</span>
+            <span><strong>Déshumidificateur (goutte d'eau)</strong> - à utiliser en cas de condensation sur les vitres, pour réduire l'humidité intérieure.</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── WIFI ──────────────────────────────────────────────────────────── -->
+  <section id="wifi">
+    <div class="section-header">
+      <span class="material-symbols-outlined">wifi</span>
+      <h2>WiFi</h2>
+    </div>
+    <div class="wifi-card">
+      <span class="material-symbols-outlined wifi-icon">wifi</span>
+      <div>
+        <p style="font-family:'Newsreader',serif;font-size:1.1rem;font-weight:500;margin-bottom:.5rem;">Identifiants envoyés par message</p>
+        <p style="color:var(--text-muted);font-size:.9rem;">Le nom du réseau et le mot de passe vous ont été communiqués par message lors de la confirmation de votre réservation.</p>
+      </div>
+    </div>
+    <p style="color: var(--text-muted); font-size: .9rem; max-width: 500px; margin-top: 1rem;">
+      La connexion est disponible dans toute la tiny house et sur la terrasse. En cas de problème, redémarrez le routeur (débranchez 30 secondes puis rebranchez).
+    </p>
+  </section>
+
+  <!-- ─── ACTIVITÉS ─────────────────────────────────────────────────────── -->
+  <section id="activites">
+    <div class="section-header">
+      <span class="material-symbols-outlined">explore</span>
+      <h2>Activités alentour</h2>
+    </div>
+    <div class="activities-grid">
+
+      <div class="act-card">
+        <div class="act-img">
+          <img src="images/lac_paladru.jpg" alt="Lac de Paladru aux eaux turquoises">
+        </div>
+        <div class="act-body">
+          <span class="act-tag"><span class="material-symbols-outlined">water</span> Lac</span>
+          <h4>Lac de Paladru</h4>
+          <p>Le 5ᵉ plus grand lac naturel de France aux eaux cristallines. Idéal pour la baignade, la voile et le kayak en été.</p>
+        </div>
+      </div>
+
+      <div class="act-card">
+        <div class="act-img">
+          <img src="images/chateau_virieu.jpg" alt="Château de Virieu dominant la vallée">
+        </div>
+        <div class="act-body">
+          <span class="act-tag"><span class="material-symbols-outlined">castle</span> Patrimoine</span>
+          <h4>Château de Virieu</h4>
+          <p>Un joyau d'architecture médiévale et Renaissance qui domine la vallée avec majesté. Visites guidées disponibles en saison.</p>
+          <a class="act-link" href="https://www.chateau-de-virieu.com/" target="_blank" rel="noopener">
+            <span class="material-symbols-outlined">open_in_new</span> Site officiel
+          </a>
+        </div>
+      </div>
+
+      <div class="act-card">
+        <div class="act-img">
+          <img src="images/chateau_pupetiere.jpg" alt="Château de Pupetières">
+        </div>
+        <div class="act-body">
+          <span class="act-tag"><span class="material-symbols-outlined">castle</span> Patrimoine</span>
+          <h4>Château de Pupetières</h4>
+          <p>Un superbe château du XIXᵉ siècle entouré d'un parc à l'anglaise.</p>
+          <a class="act-link" href="https://pupetieres.jimdofree.com/" target="_blank" rel="noopener">
+            <span class="material-symbols-outlined">open_in_new</span> Site officiel
+          </a>
+        </div>
+      </div>
+
+      <div class="act-card">
+        <div class="act-img">
+          <img src="images/malp.jpg" alt="Musée archéologique du lac de Paladru">
+        </div>
+        <div class="act-body">
+          <span class="act-tag"><span class="material-symbols-outlined">museum</span> Culture</span>
+          <h4>Musée archéologique du lac de Paladru</h4>
+          <p>Plongez dans les civilisations néolithiques et médiévales des rives du lac.</p>
+          <a class="act-link" href="https://www.museearcheologiquelacdepaladru.fr/" target="_blank" rel="noopener">
+            <span class="material-symbols-outlined">open_in_new</span> Site officiel
+          </a>
+        </div>
+      </div>
+
+      <div class="act-card">
+        <div class="act-placeholder brown">
+          <span class="material-symbols-outlined">museum</span>
+        </div>
+        <div class="act-body">
+          <span class="act-tag"><span class="material-symbols-outlined">museum</span> Culture</span>
+          <h4>Musée de la Galoche</h4>
+          <p>Un musée artisanal dédié à la fabrication de la galoche, chaussure traditionnelle de la région.</p>
+          <a class="act-link" href="https://museedelagaloche.fr/" target="_blank" rel="noopener">
+            <span class="material-symbols-outlined">open_in_new</span> Site officiel
+          </a>
+        </div>
+      </div>
+
+      <div class="act-card">
+        <div class="act-placeholder green">
+          <span class="material-symbols-outlined">hiking</span>
+        </div>
+        <div class="act-body">
+          <span class="act-tag"><span class="material-symbols-outlined">hiking</span> Nature</span>
+          <h4>Sentiers de randonnée</h4>
+          <p>De nombreux sentiers balisés sillonnent la campagne environnante : balades en forêt, tour du lac, chemins … pour tous les niveaux.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── COMMERCES ────────────────────────────────────────────────────── -->
+  <section id="commerces">
+    <div class="section-header">
+      <span class="material-symbols-outlined">storefront</span>
+      <h2>Commerces et restauration</h2>
+    </div>
+
+    <p class="sub-label" style="margin-bottom:1rem;">Supérettes</p>
+    <div class="commerce-list" style="margin-bottom:2rem;">
+
+      <div class="commerce-card">
+        <div class="commerce-header">
+          <div class="commerce-icon"><span class="material-symbols-outlined">local_grocery_store</span></div>
+          <div>
+            <h4>Proxi - Bureau de tabac et Poste</h4>
+            <span class="act-tag" style="margin:0"><span class="material-symbols-outlined">location_on</span> 76 rue du Vallon de Lamartine</span>
+          </div>
+        </div>
+        <dl class="horaires">
+          <div><dt>Lun – Ven</dt><dd>06h45 – 12h30 et 14h30 – 19h30</dd></div>
+          <div><dt>Sam</dt><dd>07h00 – 12h30 et 14h30 – 19h30</dd></div>
+          <div><dt>Dim</dt><dd>07h30 – 12h30</dd></div>
+        </dl>
+      </div>
+
+      <div class="commerce-card">
+        <div class="commerce-header">
+          <div class="commerce-icon"><span class="material-symbols-outlined">local_grocery_store</span></div>
+          <div>
+            <h4>Spar</h4>
+            <span class="act-tag" style="margin:0"><span class="material-symbols-outlined">location_on</span> Rue de la Gare</span>
+          </div>
+        </div>
+        <dl class="horaires">
+          <div><dt>Mar – Jeu et Sam</dt><dd>07h30 – 12h30 et 15h30 – 19h30</dd></div>
+          <div><dt>Ven</dt><dd>08h00 – 12h30</dd></div>
+          <div><dt>Dim</dt><dd>08h30 – 12h30</dd></div>
+          <div><dt>Lun</dt><dd>Fermé</dd></div>
+        </dl>
+      </div>
+
+    </div>
+
+    <p class="sub-label" style="margin-bottom:1rem;">Boulangeries</p>
+    <div class="commerce-list" style="margin-bottom:2rem;">
+
+      <div class="commerce-card">
+        <div class="commerce-header">
+          <div class="commerce-icon"><span class="material-symbols-outlined">bakery_dining</span></div>
+          <div>
+            <h4>Les Délices d'Alyssa</h4>
+            <span class="act-tag" style="margin:0"><span class="material-symbols-outlined">location_on</span> 43 rue Carnot</span>
+          </div>
+        </div>
+        <dl class="horaires">
+          <div><dt>Mar – Sam</dt><dd>06h00 – 13h00 et 15h00 – 19h00</dd></div>
+          <div><dt>Dim</dt><dd>06h00 – 13h00</dd></div>
+          <div><dt>Lun</dt><dd>Fermé</dd></div>
+        </dl>
+      </div>
+
+      <div class="commerce-card">
+        <div class="commerce-header">
+          <div class="commerce-icon"><span class="material-symbols-outlined">bakery_dining</span></div>
+          <div>
+            <h4>Le Fournil du Passage</h4>
+            <span class="act-tag" style="margin:0"><span class="material-symbols-outlined">location_on</span> 42 pl. de la Guinguette</span>
+          </div>
+        </div>
+        <dl class="horaires">
+          <div><dt>Mar, Ven, Sam</dt><dd>08h30 – 13h00</dd></div>
+          <div><dt>Mer</dt><dd>08h30 – 13h00 et 16h00 – 18h30</dd></div>
+          <div><dt>Lun, Jeu, Dim</dt><dd>Fermé</dd></div>
+        </dl>
+      </div>
+
+    </div>
+
+    <p class="sub-label" style="margin-bottom:1rem;">Restauration</p>
+    <div class="commerce-list" style="margin-bottom:2rem;">
+
+      <div class="commerce-card">
+        <div class="commerce-header">
+          <div class="commerce-icon"><span class="material-symbols-outlined">restaurant</span></div>
+          <div>
+            <h4>Ô Carnot</h4>
+            <span class="act-tag" style="margin:0"><span class="material-symbols-outlined">location_on</span> 70 rue Carnot</span>
+          </div>
+        </div>
+        <dl class="horaires">
+          <div><dt>Tous les jours</dt><dd>07h00 – 15h00 et 17h00 – 23h00</dd></div>
+        </dl>
+      </div>
+
+      <div class="commerce-card">
+        <div class="commerce-header">
+          <div class="commerce-icon"><span class="material-symbols-outlined">restaurant</span></div>
+          <div>
+            <h4>La Guinguette</h4>
+            <span class="act-tag" style="margin:0"><span class="material-symbols-outlined">location_on</span> Val de Virieu</span>
+          </div>
+        </div>
+        <dl class="horaires">
+          <div><dt>Mar – Jeu</dt><dd>12h00 – 15h00</dd></div>
+          <div><dt>Ven – Sam</dt><dd>12h00 – 15h00 et 19h00 – 22h00</dd></div>
+          <div><dt>Dim – Lun</dt><dd>Fermé</dd></div>
+        </dl>
+      </div>
+
+      <div class="commerce-card">
+        <div class="commerce-header">
+          <div class="commerce-icon" style="background:rgba(119,87,77,.12);color:var(--secondary)"><span class="material-symbols-outlined">local_pizza</span></div>
+          <div>
+            <h4>Pizza Matteo</h4>
+            <span class="act-tag" style="margin:0;background:rgba(119,87,77,.1);color:var(--secondary)"><span class="material-symbols-outlined">location_on</span> Place de l'église</span>
+          </div>
+        </div>
+        <dl class="horaires">
+          <div><dt>Mardi</dt><dd>17h30 – 21h30</dd></div>
+        </dl>
+      </div>
+
+      <div class="commerce-card">
+        <div class="commerce-header">
+          <div class="commerce-icon" style="background:rgba(119,87,77,.12);color:var(--secondary)"><span class="material-symbols-outlined">local_pizza</span></div>
+          <div>
+            <h4>Chris Pizza</h4>
+            <span class="act-tag" style="margin:0;background:rgba(119,87,77,.1);color:var(--secondary)"><span class="material-symbols-outlined">location_on</span> Place de l'église</span>
+          </div>
+        </div>
+        <dl class="horaires">
+          <div><dt>Vendredi</dt><dd>En soirée</dd></div>
+        </dl>
+      </div>
+
+    </div>
+
+    <p class="sub-label" style="margin-bottom:1rem;">Marchés à proximité</p>
+    <div class="marche-grid" style="margin-bottom:2rem;">
+      <div class="marche-item">
+        <span class="material-symbols-outlined">storefront</span>
+        <div>
+          <strong>Virieu</strong>
+          <span>Vendredi matin</span>
+        </div>
+      </div>
+      <div class="marche-item">
+        <span class="material-symbols-outlined">storefront</span>
+        <div>
+          <strong>Charavines</strong>
+          <span>Dimanche matin</span>
+        </div>
+      </div>
+      <div class="marche-item">
+        <span class="material-symbols-outlined">storefront</span>
+        <div>
+          <strong>Paladru</strong>
+          <span>Mercredi 16h – 19h</span>
+        </div>
+      </div>
+      <div class="marche-item">
+        <span class="material-symbols-outlined">storefront</span>
+        <div>
+          <strong>Les Abrets en Dauphiné</strong>
+          <span>Jeudi matin</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="sub-label" style="margin-bottom:1rem;">Offices du tourisme</p>
+    <div class="commerce-list">
+      <a class="commerce-card ot-card" href="https://tourisme-valsdudauphine.fr/" target="_blank" rel="noopener">
+        <div class="commerce-header">
+          <div class="commerce-icon"><span class="material-symbols-outlined">info</span></div>
+          <div>
+            <h4>Office de tourisme - Vals du Dauphiné</h4>
+            <span class="act-tag" style="margin:0"><span class="material-symbols-outlined">location_on</span> La Tour-du-Pin</span>
+          </div>
+        </div>
+        <span class="act-link" style="margin-top:.5rem;display:inline-flex">
+          <span class="material-symbols-outlined">open_in_new</span> tourisme-valsdudauphine.fr
+        </span>
+      </a>
+      <a class="commerce-card ot-card" href="https://tourisme.paysvoironnais.com/" target="_blank" rel="noopener">
+        <div class="commerce-header">
+          <div class="commerce-icon"><span class="material-symbols-outlined">info</span></div>
+          <div>
+            <h4>Office de tourisme - Pays Voironnais</h4>
+            <span class="act-tag" style="margin:0"><span class="material-symbols-outlined">location_on</span> Charavines</span>
+          </div>
+        </div>
+        <span class="act-link" style="margin-top:.5rem;display:inline-flex">
+          <span class="material-symbols-outlined">open_in_new</span> tourisme.paysvoironnais.com
+        </span>
+      </a>
+    </div>
+
+  </section>
+
+  <!-- ─── URGENCES ──────────────────────────────────────────────────────── -->
+  <section id="urgences">
+    <div class="section-header">
+      <span class="material-symbols-outlined">emergency</span>
+      <h2>Urgences</h2>
+    </div>
+    <div class="info-note danger" style="margin-bottom:1.5rem;">
+      <span class="material-symbols-outlined">location_on</span>
+      <span>Adresse pour les secours : <strong>250 impasse des Plantées, 38730 Val de Virieu</strong> - Communiquez cette adresse dès le début de l'appel.</span>
+    </div>
+    <div class="emergency-grid">
+      <div class="e-card standard" style="grid-column: span 2; flex-direction:row; text-align:left; gap:1.25rem; padding:1.5rem 1.75rem;">
+        <span class="material-symbols-outlined" style="font-size:2.5rem;color:#ba1a1a;flex-shrink:0">local_hospital</span>
+        <div>
+          <span class="e-lbl">Hôpital le plus proche</span>
+          <span class="e-num" style="color:#ba1a1a;display:block">CHU de Voiron</span>
+          <p style="font-size:.88rem;color:var(--text-muted);margin-top:.25rem">Centre Hospitalier Universitaire - service des urgences disponible 24h/24.</p>
+        </div>
+      </div>
+      <div class="e-card standard" style="grid-column: span 2; flex-direction:row; text-align:left; gap:1.25rem; padding:1.5rem 1.75rem;">
+        <span class="material-symbols-outlined" style="font-size:2.5rem;color:#ba1a1a;flex-shrink:0">local_hospital</span>
+        <div>
+          <span class="e-lbl">Hôpital alternatif</span>
+          <span class="e-num" style="color:#ba1a1a;display:block">GHND - Bourgoin-Jallieu</span>
+          <p style="font-size:.88rem;color:var(--text-muted);margin-top:.25rem">Groupement Hospitalier Nord Dauphiné - service des urgences disponible 24h/24.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══════════════════════════════════════════════════════ FOOTER -->
+<footer>
+  <span class="footer-logo">Ptit Nid Sage</span>
+  <p>Merci de respecter les lieux et la nature. Nous espérons vous revoir bientôt !</p>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════ JS -->
+<script>
+  async function exportPDF() {
+    const btn = document.getElementById('btn-pdf');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="material-symbols-outlined">hourglass_top</span> Génération…';
+
+    if (!window.html2pdf) {
+      await new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+        s.onload = resolve;
+        s.onerror = () => reject(new Error('Impossible de charger html2pdf.js'));
+        document.head.appendChild(s);
+      });
+    }
+
+    // ── Sauvegarde + modification du DOM en place ──
+    const header = document.querySelector('header');
+    header.style.display = 'none';
+
+    const links = [...document.querySelectorAll('a.act-link[href]')];
+    const linkBackups = links.map(a => ({ el: a, html: a.innerHTML, style: a.getAttribute('style') }));
+    links.forEach(a => {
+      a.textContent = '↗ ' + a.getAttribute('href');
+      a.style.cssText = 'display:block;margin-top:.3rem;font-size:.75rem;font-style:italic;color:#555;background:none;border:none;padding:0;font-weight:normal;letter-spacing:0;text-transform:none;';
+    });
+
+    try {
+      await html2pdf().set({
+        margin:      [14, 12, 14, 12],
+        filename:    'guide-sejour-ptit-nid-sage.pdf',
+        image:       { type: 'jpeg', quality: 0.96 },
+        html2canvas: { scale: 2, useCORS: false, allowTaint: false, logging: false, windowWidth: 900 },
+        jsPDF:       { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
+        pagebreak:   { mode: ['css', 'legacy'], avoid: '.act-card, .rule-item, .welcome-card, .wifi-card, .e-card' },
+      }).from(document.querySelector('main')).save();
+    } finally {
+      // ── Restauration du DOM ──
+      header.style.display = '';
+      linkBackups.forEach(({ el, html, style }) => {
+        el.innerHTML = html;
+        style ? el.setAttribute('style', style) : el.removeAttribute('style');
+      });
+      btn.disabled = false;
+      btn.innerHTML = '<span class="material-symbols-outlined">picture_as_pdf</span> Télécharger PDF';
+    }
+  }
+
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('#main-nav a');
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id);
+        });
+      }
+    });
+  }, { threshold: 0.25, rootMargin: '-80px 0px -40% 0px' });
+
+  sections.forEach(s => io.observe(s));
+</script>
+
+</body>
+</html>
