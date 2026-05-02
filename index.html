@@ -247,7 +247,6 @@
       border: 1px solid var(--outline-faint);
       border-radius: var(--r-xl);
       padding: 2rem 2.5rem;
-      max-width: 800px;
       border-left: 4px solid var(--primary);
     }
     .welcome-card p { color: var(--text-muted); }
@@ -336,7 +335,6 @@
       border: 2px dashed var(--primary-mid);
       border-radius: var(--r-xl);
       padding: 2rem 2.5rem;
-      max-width: 520px;
       margin-bottom: 1rem;
     }
     .wifi-icon { font-size: 3.5rem !important; color: var(--primary); flex-shrink: 0; }
@@ -746,7 +744,7 @@
         <span class="rule-num">2</span>
         <div class="rule-body">
           <strong>Non-fumeur</strong>
-          <p>Il est interdit de fumer à l'intérieur. La cigarette est tolérée uniquement en extérieur, loin de la structure.</p>
+          <p>Il est interdit de fumer à l'intérieur.</p>
         </div>
       </li>
       <li class="rule-item">
@@ -819,7 +817,9 @@
         <p>Deux espaces de couchage en hauteur, cosy.</p>
       </div>
       <div class="card">
-        <div class="card-icon"><span class="material-symbols-outlined">sports_gymnastics</span></div>
+        <div class="card-icon"><span class="material-symbols-outlined">
+background_grid_small
+</span></div>
         <h3>Filet de détente</h3>
         <p>Un filet suspendu idéal pour se prélasser ou lire.</p>
       </div>
@@ -901,7 +901,7 @@
       </div>
     </div>
     <p style="color: var(--text-muted); font-size: .9rem; max-width: 500px; margin-top: 1rem;">
-      La connexion est disponible dans toute la tiny house et sur la terrasse. En cas de problème, redémarrez le routeur (débranchez 30 secondes puis rebranchez).
+      La connexion est disponible dans toute la tiny house et sur la terrasse. En cas de problème, merci de nous contacter.
     </p>
   </section>
 
@@ -981,8 +981,8 @@
       </div>
 
       <div class="act-card">
-        <div class="act-placeholder green">
-          <span class="material-symbols-outlined">hiking</span>
+        <div class="act-img">
+          <img src="images/randonnee.jpeg" alt="Illustration de randonnée">
         </div>
         <div class="act-body">
           <span class="act-tag"><span class="material-symbols-outlined">hiking</span> Nature</span>
@@ -1233,51 +1233,34 @@
 
 <!-- ═══════════════════════════════════════════════════════ JS -->
 <script>
-  async function exportPDF() {
-    const btn = document.getElementById('btn-pdf');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="material-symbols-outlined">hourglass_top</span> Génération…';
+  function exportPDF() {
+    // Liens activités : <a class="act-link" href="...">Site officiel</a>
+    const actLinks = [...document.querySelectorAll('a.act-link[href]')];
+    // Liens offices de tourisme : <span class="act-link"> à l'intérieur de <a class="ot-card" href="...">
+    const otLinks  = [...document.querySelectorAll('a.ot-card[href] .act-link')];
 
-    if (!window.html2pdf) {
-      await new Promise((resolve, reject) => {
-        const s = document.createElement('script');
-        s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-        s.onload = resolve;
-        s.onerror = () => reject(new Error('Impossible de charger html2pdf.js'));
-        document.head.appendChild(s);
-      });
-    }
+    const backups = [
+      ...actLinks.map(a  => ({ el: a,  html: a.innerHTML,  style: a.getAttribute('style'),  url: a.getAttribute('href') })),
+      ...otLinks.map(span => ({ el: span, html: span.innerHTML, style: span.getAttribute('style'), url: span.closest('a').getAttribute('href') })),
+    ];
 
-    // ── Sauvegarde + modification du DOM en place ──
-    const header = document.querySelector('header');
-    header.style.display = 'none';
-
-    const links = [...document.querySelectorAll('a.act-link[href]')];
-    const linkBackups = links.map(a => ({ el: a, html: a.innerHTML, style: a.getAttribute('style') }));
-    links.forEach(a => {
-      a.textContent = '↗ ' + a.getAttribute('href');
-      a.style.cssText = 'display:block;margin-top:.3rem;font-size:.75rem;font-style:italic;color:#555;background:none;border:none;padding:0;font-weight:normal;letter-spacing:0;text-transform:none;';
+    backups.forEach(({ el, url }) => {
+      el.innerHTML = '';
+      el.textContent = url;
+      el.style.cssText = 'display:block;margin-top:.2rem;font-size:.75rem;font-style:italic;color:#555;background:none;border:none;padding:0;font-weight:normal;letter-spacing:0;text-transform:none;';
     });
 
-    try {
-      await html2pdf().set({
-        margin:      [14, 12, 14, 12],
-        filename:    'guide-sejour-ptit-nid-sage.pdf',
-        image:       { type: 'jpeg', quality: 0.96 },
-        html2canvas: { scale: 2, useCORS: false, allowTaint: false, logging: false, windowWidth: 900 },
-        jsPDF:       { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
-        pagebreak:   { mode: ['css', 'legacy'], avoid: '.act-card, .rule-item, .welcome-card, .wifi-card, .e-card' },
-      }).from(document.querySelector('main')).save();
-    } finally {
-      // ── Restauration du DOM ──
-      header.style.display = '';
-      linkBackups.forEach(({ el, html, style }) => {
+    // Restauration après fermeture de la boîte d'impression
+    function restore() {
+      backups.forEach(({ el, html, style }) => {
         el.innerHTML = html;
         style ? el.setAttribute('style', style) : el.removeAttribute('style');
       });
-      btn.disabled = false;
-      btn.innerHTML = '<span class="material-symbols-outlined">picture_as_pdf</span> Télécharger PDF';
+      window.removeEventListener('afterprint', restore);
     }
+    window.addEventListener('afterprint', restore);
+
+    window.print();
   }
 
   // Active nav link on scroll
